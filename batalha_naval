@@ -1,0 +1,51 @@
+
+#include <stdio.h>
+
+#define TAMANHO_TABULEIRO 10
+#define TAMANHO_NAVIO 3
+
+void inicializar_tabuleiro(int tabuleiro[TAMANHO_TABULEIRO][TAMANHO_TABULEIRO]) {
+    for (int i = 0; i < TAMANHO_TABULEIRO; i++) {
+        for (int j = 0; j < TAMANHO_TABULEIRO; j++) {
+            tabuleiro[i][j] = 0; // Inicializa todas as posições com 0 (água)
+        }
+    }
+}
+
+void posicionar_navio_horizontal(int tabuleiro[TAMANHO_TABULEIRO][TAMANHO_TABULEIRO], int linha, int coluna) {
+    for (int i = 0; i < TAMANHO_NAVIO; i++) {
+        tabuleiro[linha][coluna + i] = 3; // Posiciona o navio horizontalmente com valor 3
+    }
+}
+
+void posicionar_navio_vertical(int tabuleiro[TAMANHO_TABULEIRO][TAMANHO_TABULEIRO], int linha, int coluna) {
+    for (int i = 0; i < TAMANHO_NAVIO; i++) {
+        tabuleiro[linha + i][coluna] = 3; // Posiciona o navio verticalmente com valor 3
+    }
+}
+
+void exibir_tabuleiro(int tabuleiro[TAMANHO_TABULEIRO][TAMANHO_TABULEIRO]) {
+    for (int i = 0; i < TAMANHO_TABULEIRO; i++) {
+        for (int j = 0; j < TAMANHO_TABULEIRO; j++) {
+            printf("%d ", tabuleiro[i][j]); // Exibe cada posição do tabuleiro
+        }
+        printf("\n"); // Nova linha após cada linha do tabuleiro
+    }
+}
+
+int main() {
+    int tabuleiro[TAMANHO_TABULEIRO][TAMANHO_TABULEIRO];
+
+    inicializar_tabuleiro(tabuleiro);
+
+    // Posiciona o primeiro navio horizontalmente na linha 2, coluna 3
+    posicionar_navio_horizontal(tabuleiro, 2, 3);
+
+    // Posiciona o segundo navio verticalmente na linha 5, coluna 7
+    posicionar_navio_vertical(tabuleiro, 5, 7);
+
+    // Exibe o tabuleiro
+    exibir_tabuleiro(tabuleiro);
+
+    return 0;
+}
