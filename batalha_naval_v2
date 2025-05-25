@@ -1,0 +1,80 @@
+
+#include <stdio.h>
+
+// Função para sobrepor a matriz de habilidade ao tabuleiro
+void aplicar_habilidade(int tabuleiro[10][10], int habilidade[5][5], int origem_linha, int origem_coluna) {
+    for (int i = 0; i < 5; i++) {
+        for (int j = 0; j < 5; j++) {
+            int linha = origem_linha + i - 2;
+            int coluna = origem_coluna + j - 2;
+            if (linha >= 0 && linha < 10 && coluna >= 0 && coluna < 10 && habilidade[i][j] == 1 && tabuleiro[linha][coluna] != 3) {
+                tabuleiro[linha][coluna] = 5;
+            }
+        }
+    }
+}
+
+int main() {
+    // Definição do tabuleiro 10x10
+    int tabuleiro[10][10] = {0};
+
+    // Definição dos navios (horizontal e vertical)
+    int navio_horizontal[3] = {3, 3, 3};
+    int navio_vertical[3] = {3, 3, 3};
+
+    // Posicionamento dos navios no tabuleiro
+    // Navio horizontal na linha 2, começando na coluna 3
+    for (int i = 0; i < 3; i++) {
+        tabuleiro[2][3 + i] = navio_horizontal[i];
+    }
+
+    // Navio vertical na coluna 5, começando na linha 6
+    for (int i = 0; i < 3; i++) {
+        tabuleiro[6 + i][5] = navio_vertical[i];
+    }
+
+    // Definição das matrizes de habilidade (5x5)
+    int cone[5][5] = {
+        {0, 0, 1, 0, 0},
+        {0, 1, 1, 1, 0},
+        {1, 1, 1, 1, 1},
+        {0, 0, 0, 0, 0},
+        {0, 0, 0, 0, 0}
+    };
+
+    int cruz[5][5] = {
+        {0, 0, 1, 0, 0},
+        {0, 0, 1, 0, 0},
+        {1, 1, 1, 1, 1},
+        {0, 0, 1, 0, 0},
+        {0, 0, 1, 0, 0}
+    };
+
+    int octaedro[5][5] = {
+        {0, 0, 1, 0, 0},
+        {0, 1, 1, 1, 0},
+        {1, 1, 1, 1, 1},
+        {0, 1, 1, 1, 0},
+        {0, 0, 1, 0, 0}
+    };
+
+    // Aplicar habilidades ao tabuleiro
+    // Cone com origem na linha 4, coluna 4
+    aplicar_habilidade(tabuleiro, cone, 4, 4);
+
+    // Cruz com origem na linha 7, coluna 7
+    aplicar_habilidade(tabuleiro, cruz, 7, 7);
+
+    // Octaedro com origem na linha 2, coluna 8
+    aplicar_habilidade(tabuleiro, octaedro, 2, 8);
+
+    // Exibir o tabuleiro
+    for (int i = 0; i < 10; i++) {
+        for (int j = 0; j < 10; j++) {
+            printf("%d ", tabuleiro[i][j]);
+        }
+        printf("\n");
+    }
+
+    return 0;
+}
